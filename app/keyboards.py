@@ -6,21 +6,22 @@ keyboards_menu = ReplyKeyboardMarkup(
         [KeyboardButton(text='≡ Menu'), KeyboardButton(text="✍ Izoh qoldirish")],
         [KeyboardButton(text='🛍 Bizning Mahsulotlar')]
     ],
-    resize_keyboard=True
+    resize_keyboard=True, one_time_keyboard=True
 )
 
 keyboards_product = ReplyKeyboardMarkup(
     keyboard=[
         [
-            KeyboardButton(text="Sgushonkali"), KeyboardButton(text="Kakosli")
+            KeyboardButton(text="Sgushonkali Pryanik"), KeyboardButton(text="Kakosli Pryanik")
         ],
         [
-            KeyboardButton(text="Kakaoli"), KeyboardButton(text="Kunjutli"), KeyboardButton(text="Oddiy")
+            KeyboardButton(text="Kakaoli Pryanik"), KeyboardButton(text="Kunjutli Pryanik"),
+            KeyboardButton(text="Oddiy Pryanik")
         ],
         [
             KeyboardButton(text="🔙 Ortga")
         ]
-    ], resize_keyboard=True
+    ], resize_keyboard=True,one_time_keyboard=True
 )
 
 keyboards_kilogram = ReplyKeyboardMarkup(
