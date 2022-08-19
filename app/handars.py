@@ -177,7 +177,7 @@ async def order_t_process(message: types.Message, state: FSMContext):
                                                f'Pryanik Kilosi: {data.get("product_kilo")}\n'
                                                f'Pryanik Soni: {data.get("product_count")}\n'
                                                f'Telefon: {data.get("phone_number")}'
-                                               f'Username: {data.get("username")}')
+                                               f'Username: @{data.get("username")}')
         await bot.send_location(-1001684364895, latitude=data.get('latitude'), longitude=data.get('longitude'))
         await bot.send_message(message.chat.id, "Siz muvaffaqiyatli buyurtma qildiz", reply_markup=kb.keyboards_menu)
 

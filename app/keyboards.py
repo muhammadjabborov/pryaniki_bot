@@ -21,7 +21,7 @@ keyboards_product = ReplyKeyboardMarkup(
         [
             KeyboardButton(text="🔙 Ortga")
         ]
-    ], resize_keyboard=True,one_time_keyboard=True
+    ], resize_keyboard=True, one_time_keyboard=True
 )
 
 keyboards_kilogram = ReplyKeyboardMarkup(
