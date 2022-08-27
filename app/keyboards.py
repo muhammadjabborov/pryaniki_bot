@@ -54,7 +54,7 @@ keyboards_of_biscuit = InlineKeyboardMarkup(
         [InlineKeyboardButton(text="Kakosli Pryanik", callback_data='3')],
         [InlineKeyboardButton(text="Kunjutli Pryanik", callback_data='4')],
         [InlineKeyboardButton(text="Oddiy Pryanik", callback_data='5')]
-    ], resize_keyboard=True
+    ], one_time=True
 )
 
 keyboard_phone = ReplyKeyboardMarkup(

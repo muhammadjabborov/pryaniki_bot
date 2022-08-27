@@ -1,4 +1,8 @@
+import asyncio
+import logging
+
 from aiogram.dispatcher import FSMContext
+from aiogram.utils import exceptions
 
 from app.config import dp, bot
 from aiogram import types
@@ -131,7 +135,6 @@ async def order_process(message: types.Message, state=FSMContext):
 @dp.message_handler(state=Order.product_count)
 async def order_process_count(message: types.Message, state=FSMContext):
     if message.text.isalpha():
-        await state.finish()
         await bot.send_message(message.chat.id, "Iltimos togri son yuboring")
         return Order.product_count
     if message.text == '❌ Bekor qilish':
@@ -176,7 +179,7 @@ async def order_t_process(message: types.Message, state: FSMContext):
         await bot.send_message(-1001684364895, f'Pryanik Turi: {data.get("product_title")}\n'
                                                f'Pryanik Kilosi: {data.get("product_kilo")}\n'
                                                f'Pryanik Soni: {data.get("product_count")}\n'
-                                               f'Telefon: {data.get("phone_number")}'
+                                               f'Telefon: {data.get("phone_number")}\n'
                                                f'Username: @{data.get("username")}')
         await bot.send_location(-1001684364895, latitude=data.get('latitude'), longitude=data.get('longitude'))
         await bot.send_message(message.chat.id, "Siz muvaffaqiyatli buyurtma qildiz", reply_markup=kb.keyboards_menu)
@@ -185,3 +188,13 @@ async def order_t_process(message: types.Message, state: FSMContext):
 @dp.message_handler(regexp="❌ Yoq")
 async def order_t_process(message: types.Message):
     await bot.send_message(message.chat.id, "Quyidagilardan birini tanlang 🔽", reply_markup=kb.keyboards_menu)
+
+
+@dp.message_handler(commands=['yuborish'])
+async def send_all_users(message: types.Message):
+    message = "Hi mukhammad"
+    chats = [1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316,
+             1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316,
+             1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316]
+    for chat in chats:
+        await bot.send_message(chat_id=chat, text=message)
