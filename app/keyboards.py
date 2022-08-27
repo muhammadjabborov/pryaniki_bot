@@ -80,3 +80,6 @@ keyboard_t_f = ReplyKeyboardMarkup(
         ]
     ], resize_keyboard=True
 )
+
+
+as
