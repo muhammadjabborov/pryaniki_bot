@@ -4,6 +4,7 @@ from datetime import datetime
 import time
 import sqlite3
 from os.path import exists as path_exists
+from typing import List
 
 sqlite = 'app/database/db.sqlite3'
 # sqlite = 'db.sqlite3'
@@ -54,6 +55,14 @@ def new_order(phone_number, addres, product_title, product_kilo, product_count, 
     params = (phone_number, addres, product_title, product_kilo, product_count, telegram_id, username)
     cursor.execute(inser_into_order, params)
 
+
+@commit
+def select_telegram_id():
+    select_id = """
+        select telegram_id from orders
+    """
+    telegram_id = cursor.execute(select_id).fetchall()
+    return telegram_id
 
 def init():
     create_table()

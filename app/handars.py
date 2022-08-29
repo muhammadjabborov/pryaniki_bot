@@ -1,5 +1,6 @@
 import asyncio
 import logging
+from typing import List
 
 from aiogram.dispatcher import FSMContext
 from aiogram.utils import exceptions
@@ -8,6 +9,7 @@ from app.config import dp, bot
 from aiogram import types
 import app.database.db as db
 import app.keyboards as kb
+from app.database.db import select_telegram_id, commit, cursor, connection
 from app.state import Complain, Order
 
 
@@ -15,9 +17,9 @@ from app.state import Complain, Order
 async def bot_start_command(message: types.Message, state: FSMContext):
     await bot.send_message(message.chat.id,
                            f"salom {message.from_user.first_name}", reply_markup=kb.keyboards_menu)
-    async with state.proxy() as data:
-        data['telegram_id'] = message.from_user.id
-        data['username'] = message.from_user.username
+    # async with state.proxy() as data:
+    #     data['telegram_id'] = message.from_user.id
+    #     data['username'] = message.from_user.username
 
 
 @dp.message_handler(regexp="💬 Biz haqimizda")
@@ -126,6 +128,8 @@ async def order_process(message: types.Message, state=FSMContext):
     if message.text == '3kg' or '5kg' or '10kg':
         async with state.proxy() as data:
             data['product_kilo'] = message.text
+            data['telegram_id'] = message.from_user.id
+            data['username'] = message.from_user.username
         await bot.send_message(message.chat.id, 'Nechta xoxlaysiz', reply_markup=kb.keyboard_cancel)
         await Order.next()
     else:
@@ -161,6 +165,7 @@ async def order_process_adres(message: types.Message, state=FSMContext):
         data['latitude'] = message.location['latitude']
         data['longitude'] = message.location['longitude']
         data['address'] = f"{message.location['latitude']} {message.location['longitude']}"
+
         await state.finish()
         await bot.send_message(message.chat.id, "Shu malumotlaringizni tasdiqlaysizmi? ")
         await bot.send_message(message.chat.id, f'Pryanik Turi: {data.get("product_title")}\n'
@@ -192,9 +197,7 @@ async def order_t_process(message: types.Message):
 
 @dp.message_handler(commands=['yuborish'])
 async def send_all_users(message: types.Message):
-    message = "Hi mukhammad"
-    chats = [1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316,
-             1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316,
-             1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316, 1305333316]
+    message = "nma gap endi bolla"
+    chats = select_telegram_id()
     for chat in chats:
-        await bot.send_message(chat_id=chat, text=message)
+        await bot.send_message(chat_id=chat[0], text=message)
